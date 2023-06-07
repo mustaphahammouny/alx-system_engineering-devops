@@ -1,0 +1,3 @@
+#!/bin/bash
+file_type=$(file -b /tmp/iamafile)
+echo "/tmp/iamafile: $file_type"

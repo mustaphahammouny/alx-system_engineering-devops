@@ -1,0 +1,21 @@
+#!/bin/bash
+
+current_dir=$(pwd)
+parent_dir=$(dirname "$current_dir")
+
+# Loop through HTML files in the current directory
+for file in *.html; do
+  if [ -f "$parent_dir/$file" ]; then
+    # Check if file exists in parent directory
+    current_file_modified=$(date -r "$file" +%s)
+    parent_file_modified=$(date -r "$parent_dir/$file" +%s)
+
+    if [ "$current_file_modified" -gt "$parent_file_modified" ]; then
+      # Copy the file if it is newer
+      cp "$file" "$parent_dir/$file"
+    fi
+  else
+    # Copy the file if it doesn't exist in the parent directory
+    cp "$file" "$parent_dir/$file"
+  fi
+done
